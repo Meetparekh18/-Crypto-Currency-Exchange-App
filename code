@@ -1,0 +1,19 @@
+
+**app/views.py**
+```python
+from django.shortcuts import render
+import requests
+
+def home(request):
+    response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    data = response.json()
+    price = data['bpi']['USD']['rate']
+    return render(request, 'home.html', {'price': price})
+
+  <!DOCTYPE html>
+<html>
+<head><title>Crypto Tracker</title></head>
+<body>
+  <h1>Bitcoin Price: ${{ price }}</h1>
+</body>
+</html>
